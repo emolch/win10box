@@ -1,0 +1,25 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "win10"
+  config.vm.provider "virtualbox" do |vb|
+     vb.customize ["modifyvm", :id, "--memory", "4096"]
+     vb.customize ["modifyvm", :id, "--cpus", "4"]
+  end
+  config.vm.network :private_network, ip: '192.168.115.90'
+  config.vm.network :forwarded_port, guest: 22, host: 22090, id: 'ssh'
+
+  config.winssh.shell = "cmd"
+  config.vm.boot_timeout = 600
+  config.trigger.before :up do |trigger|
+    trigger.info = "Starting nudger..."
+    trigger.run = {inline: "bash -c '( for ((i=0; i<10; i++ )) ; do sleep 60 ; echo nudge $i >> nudge.temp ; vagrant ssh -- powershell -Command Set-NetConnectionProfile -NetworkCategory Private ; done ) &'"}
+  end
+
+  config.vm.guest = :windows
+  config.vm.communicator = "winrm"
+
+  config.vm.provision "prepare", type: "shell" do |s|
+    s.path = "provision.bat"
+  end
+end
