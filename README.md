@@ -101,9 +101,11 @@ The whole process includes the following steps:
 ## Good to know
 
 - This post on [How to setup a Windows VM...](https://beenje.github.io/blog/posts/how-to-setup-a-windows-vm-to-build-conda-packages)
-helped for the initial setup.
--It is important to install the old 2017 version of *Buld Tools for Visual Studio* if you want to build Python packages for Conda.
-- You can configure VirtualBox to either provide RDP or VNC, use `vinagre` as client on Linux.
+  helped for the initial setup.
+- It is important to install the old 2017 version of *Buld Tools for Visual
+  Studio* if you want to build Python packages for Conda.
+- You can configure VirtualBox to either provide RDP or VNC, use `vinagre` as
+  client on Linux.
 - Get vim on Windows
   ```
   conda install m2-libiconv m2-libintl m2-vim
