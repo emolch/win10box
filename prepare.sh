@@ -60,6 +60,7 @@ if [ "$1" == 'create' ]; then
     vboxmanage modifyvm "$vm_name" --hostonlyadapter1 "$adapter_name"
 fi
 
+
 if [ "$1" == 'info' ]; then
     vboxmanage showvminfo "$vm_name"
 fi
@@ -69,6 +70,19 @@ if [ "$1" == 'start' ]; then
     # vboxmanage setproperty vrdeextpack VNC
     vboxmanage setproperty vrdeextpack "Oracle VM VirtualBox Extension Pack"
     vboxheadless --startvm "$vm_name"
+fi
+
+if [ "$1" == 'grow' ]; then
+    vboxmanage clonemedium "$vm_path/MSEdge - Win10-disk001.vmdk" "$vm_path/cloned.vdi" --format vdi
+    vboxmanage modifymedium "$vm_path/cloned.vdi" --resize 102400
+    vboxmanage clonemedium "$vm_path/cloned.vdi" "$vm_path/win10disk.vmdk" --format vmdk
+    vboxmanage storageattach "$vm_name" \
+        --storagectl "IDE Controller" \
+        --device 0 \
+        --port 0 \
+        --type hdd \
+        --medium "$vm_path/win10disk.vmdk"
+    echo "Now start the machine and grow the partition with Windows Disk Manager."
 fi
 
 if [ "$1" == 'connect_rdp' ]; then

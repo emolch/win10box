@@ -78,7 +78,9 @@ The whole process includes the following steps:
 ## Step by step
 
 - (1) - (2) are carried out by running `./prepare.sh create`
-- (3) is done by running `./prepare.sh start`
+- (2b) optionally grow the disk image to 100 GB with ./prepare.sh grow. If
+  done, also grow the partition from within Windows with 'Disk Manager' when 
+  machine is running for performing (4) - (5).
 - (4) - (5)
   - Connect to the machine via RDP with `vinagre`, connect to `localhost` port
     `5940`. Screen size to 1024 x 768. Password is `Passw0rd!`
@@ -123,3 +125,5 @@ The whole process includes the following steps:
   guestmount -v -a "Win10-disk001.vmdk" -m /dev/sda1 --rw mnt
   guestunmount mnt
   ```
+- List disk images `vboxmanage list hdds`
+- Remove disk images `vboxmanage closemedium disk <uuid> --delete`
