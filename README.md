@@ -89,7 +89,7 @@ The whole process includes the following steps:
 - (6) run `./prepare.sh package` this will create the precious `win10.box`
   which can be copied to other machines.
 - (7) run `./prepare.sh cleanup`
-- (8) run `vagrant import win10.box --name win10`
+- (8) run `vagrant box add win10.box --name win10`
 - (9) put in place `Vagrantfile` and `provision.bat` and run `vagrant up`. This
   will start the machine, install VisualStudio Build Tools and Miniconda3, and
   activate the 90 day trial period of the Windows.
@@ -104,7 +104,7 @@ The whole process includes the following steps:
 
 - This post on [How to setup a Windows VM...](https://beenje.github.io/blog/posts/how-to-setup-a-windows-vm-to-build-conda-packages)
   helped for the initial setup.
-- It is important to install the old 2017 version of *Buld Tools for Visual
+- It is important to install the old 2017 version of *Build Tools for Visual
   Studio* if you want to build Python packages for Conda.
 - You can configure VirtualBox to either provide RDP or VNC, use `vinagre` as
   client on Linux.
